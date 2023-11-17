@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MoviesService } from "../../services/movies.service";
 
 @Component({
@@ -8,7 +8,7 @@ import { MoviesService } from "../../services/movies.service";
 })
 export class MoviesListComponent implements OnInit {
   movies: any = null;
-  moviesLiked = ['The Shawshank Redemption', 'The Dark Knight']
+  moviesLiked = ['The Shawshank Redemption', 'The Dark Knight'];
   timeout: any = null;
 
   constructor(
@@ -30,7 +30,9 @@ export class MoviesListComponent implements OnInit {
         if (searchKey == '') {
           this.movies = response.body.data.movies;
         } else {
-          this.movies = response.body.data.movies.filter((movie: any) => movie.title.toLowerCase().includes(searchKey.toLowerCase()))
+          // This is is a very basic search, it's not requested
+          // on the assessment, but though it'd be cool
+          this.movies = response.body.data.movies.filter((movie: any) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
         }
       }); 
     }, 500);
@@ -38,7 +40,7 @@ export class MoviesListComponent implements OnInit {
 
   // Sorting also should be moved to a service
   // but for the sake of time, I'll finish the
-  // like feature first
+  // core features first
   onApplyingFilter(event: any) {
     let sortedMovies:any = [];
     let sortingMethod = event.target.value.split('-');
@@ -66,10 +68,10 @@ export class MoviesListComponent implements OnInit {
       }
     }
 
-    this.movies = sortedMovies
+    this.movies = sortedMovies;
   }
 
   movieLiked(event: any) {
-    console.log('Movie liked from child component')
+    console.log('Movie liked from child component');
   }
 }
