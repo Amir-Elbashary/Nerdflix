@@ -1,5 +1,26 @@
+<div class="relative z-10" *ngIf="menuShown">
+  <div class="absolute top-0 bg-[#131313] w-full p-4 h-screen">
+    <img src="./assets/icons/close.svg" alt="close" class="fixed top-0 right-0 w-12" (click)="toggleMenu()">
+
+    <div class="mb-8">
+      <img src="./assets/images/nerdflix-logo.png">
+    </div>
+
+    <ul class="flex flex-col gap-6 text-gray-400 text-xl">
+      <li class="font-sansBold"><a href="#">Homepage</a></li>
+      <li class="font-sansBold"><a href="#">Series</a></li>
+      <!-- color and underline should be set dynamically if we have more routes -->
+      <li class="text-white font-sansBold border-l-4 border-red-600"><a routerLink="movies" class="ml-2">Movies</a></li>
+    </ul>
+  </div>
+</div>
+
 <nav class="flex justify-between items-center py-4 px-14 bg-[#131313]">
   <div>
+    <img src="./assets/icons/menu.svg" alt="menu" class="w-6 md:hidden hover:cursor-pointer" (click)="toggleMenu()">
+  </div>
+
+  <div class="hidden md:block">
     <ul class="flex gap-4 text-gray-400">
       <li class="font-sansBold"><a href="#">Homepage</a></li>
       <li class="font-sansBold"><a href="#">Series</a></li>
@@ -14,6 +35,6 @@
 
   <div class="flex items-center gap-2">
     <img src="./assets/icons/star.png" class="h-4">
-    <span class="text-white font-sansBold">5</span>
+    <span class="text-white font-sansBold">2</span>
   </div>
 </nav>
