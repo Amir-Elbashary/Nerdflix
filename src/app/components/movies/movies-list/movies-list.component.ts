@@ -8,12 +8,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MoviesListComponent implements OnInit {
   private URL = '../assets/imdb-top-50.json';
+  movies = [];
 
   constructor(
     private http: HttpClient
   ) {}
 
   ngOnInit() {
-    this.http.get(this.URL).subscribe(console.log);
+    this.http.get(this.URL).subscribe((response: any) => {
+      this.movies = response.data.movies;
+      console.log(this.movies)
+    });
+
   }
 }
