@@ -20,11 +20,7 @@ export class MovieItemComponent implements OnInit {
   }
 
   toggleMovieLike() {
-    if (this.movieLiked) {
-      this.movieLiked = false;
-    } else {
-      this.movieLiked = true;
-    }
+    this.movieLiked ? this.movieLiked = false : this.movieLiked = true
 
     this.onMovieLiked.emit(this.movieLiked);
   }

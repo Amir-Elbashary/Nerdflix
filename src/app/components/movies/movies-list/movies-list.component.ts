@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from "../../services/movies.service";
+import { Movie } from "../../../models/movie.model";
 
 @Component({
   selector: 'app-movies-list',
@@ -7,7 +8,7 @@ import { MoviesService } from "../../services/movies.service";
   styleUrls: ['./movies-list.component.css']
 })
 export class MoviesListComponent implements OnInit {
-  movies: any = null;
+  movies: Movie[] = [];
   moviesLiked = ['The Shawshank Redemption', 'The Dark Knight'];
   timeout: any = null;
 
