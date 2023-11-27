@@ -20,7 +20,6 @@ export class MoviesListComponent implements OnInit {
   ngOnInit() {
     this.moviesService.getMovies().subscribe((response: any) => {
       this.movies = response.body.data.movies;
-      console.log(this.movies[0])
     });
   }
 
@@ -34,7 +33,7 @@ export class MoviesListComponent implements OnInit {
         } else {
           // This is is a very basic search, it's not requested
           // on the assessment, but though it'd be cool
-          this.movies = response.body.data.movies.filter((movie: any) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
+          this.movies = response.body.data.movies.filter((movie: Movie) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
         }
       }); 
     }, 800);
@@ -44,14 +43,14 @@ export class MoviesListComponent implements OnInit {
   // but for the sake of time, I'll finish the
   // core features first
   onApplyingFilter(event: any) {
-    let sortedMovies:any = [];
+    let sortedMovies: Movie[] = [];
     let sortingMethod = event.target.value.split('-');
     let sortingBy = sortingMethod[0];
     let sortingDir = sortingMethod[1];
 
     switch(sortingBy) {
       case 'title': {
-        sortedMovies = this.movies.sort((a:any, b:any) => {
+        sortedMovies = this.movies.sort((a: Movie, b: Movie) => {
           return a.title.localeCompare(b.title);
         });
 
@@ -62,8 +61,8 @@ export class MoviesListComponent implements OnInit {
         break;
       }
       case 'rating': {
-        sortedMovies = this.movies.sort((a:any, b:any) => {
-          return sortingDir == 'desc' ? a.rating - b.rating : b.rating - a.rating;
+        sortedMovies = this.movies.sort((a: Movie, b: Movie) => {
+          return sortingDir == 'desc' ? +a.rating - +b.rating : +b.rating - +a.rating;
         });
 
         break;
@@ -73,13 +72,13 @@ export class MoviesListComponent implements OnInit {
     this.movies = sortedMovies;
   }
 
-  movieLiked(event: any, action: any) {
-    if (this.moviesLiked.includes(action)) {
-      this.moviesLiked = this.moviesLiked.filter(movie => {return movie !== action});
-      --this.likedMovies
+  movieLiked(movieTitle: string) {
+    if (this.moviesLiked.includes(movieTitle)) {
+      this.moviesLiked = this.moviesLiked.filter(movie => {return movie !== movieTitle});
+      --this.likedMovies;
     } else {
-      this.moviesLiked.push(action)
-      ++this.likedMovies
+      this.moviesLiked.push(movieTitle);
+      ++this.likedMovies;
     }
 
     // Intentional keeping this for demo
