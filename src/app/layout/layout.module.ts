@@ -7,7 +7,7 @@ import { SharedModule } from "../components/shared/shared.module";
 
 @NgModule({
   declarations: [
-    HeaderComponent,
+    // HeaderComponent,
     ContentWrapperComponent
   ],
   imports: [

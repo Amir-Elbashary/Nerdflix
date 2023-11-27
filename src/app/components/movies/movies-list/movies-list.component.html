@@ -1,3 +1,5 @@
+<app-header [likedMovies]="likedMovies"></app-header>
+
 <div>
   <div class="flex justify-between bg-[#171717] py-2 px-8 md:py-4 md:px-14">
     <div>
@@ -13,8 +15,8 @@
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
           <select class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" (change)="onApplyingFilter($event)">
             <option disabled selected>Title..</option>
-            <option value="title-asc">Title (A-Z)</option>
-            <option value="title-desc">Title (Z-A)</option>
+            <option value="title-asc">(A-Z)</option>
+            <option value="title-desc">(Z-A)</option>
           </select>
         </div>
 
@@ -22,8 +24,8 @@
           <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
           <select id="countries" class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" (change)="onApplyingFilter($event)">
             <option disabled selected>Rating..</option>
-            <option value="rating-asc">Rating (Higher)</option>
-            <option value="rating-desc">Rating (Lower)</option>
+            <option value="rating-asc">(Higher)</option>
+            <option value="rating-desc">(Lower)</option>
           </select>
         </div>
       </div>
@@ -31,6 +33,6 @@
   </div>
 
   <div *ngIf="movies" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 bg-[#1D1D1D] p-4">
-    <app-movie-item *ngFor="let movie of movies" [movie]="movie" [moviesLiked]="moviesLiked" (onMovieLiked)="movieLiked($event)"></app-movie-item>
+    <app-movie-item *ngFor="let movie of movies" [movie]="movie" [moviesLiked]="moviesLiked" (onMovieLiked)="movieLiked(movie.title)"></app-movie-item>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from "../../services/movies.service";
+import { Movie } from "../../../models/movie.model";
 
 @Component({
   selector: 'app-movies-list',
@@ -7,9 +8,10 @@ import { MoviesService } from "../../services/movies.service";
   styleUrls: ['./movies-list.component.css']
 })
 export class MoviesListComponent implements OnInit {
-  movies: any = null;
+  movies: Movie[] = [];
   moviesLiked = ['The Shawshank Redemption', 'The Dark Knight'];
   timeout: any = null;
+  likedMovies = 2;
 
   constructor(
     private moviesService: MoviesService
@@ -31,24 +33,24 @@ export class MoviesListComponent implements OnInit {
         } else {
           // This is is a very basic search, it's not requested
           // on the assessment, but though it'd be cool
-          this.movies = response.body.data.movies.filter((movie: any) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
+          this.movies = response.body.data.movies.filter((movie: Movie) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
         }
       }); 
-    }, 500);
+    }, 800);
   }
 
   // Sorting also should be moved to a service
   // but for the sake of time, I'll finish the
   // core features first
   onApplyingFilter(event: any) {
-    let sortedMovies:any = [];
+    let sortedMovies: Movie[] = [];
     let sortingMethod = event.target.value.split('-');
     let sortingBy = sortingMethod[0];
     let sortingDir = sortingMethod[1];
 
     switch(sortingBy) {
       case 'title': {
-        sortedMovies = this.movies.sort((a:any, b:any) => {
+        sortedMovies = this.movies.sort((a: Movie, b: Movie) => {
           return a.title.localeCompare(b.title);
         });
 
@@ -59,8 +61,8 @@ export class MoviesListComponent implements OnInit {
         break;
       }
       case 'rating': {
-        sortedMovies = this.movies.sort((a:any, b:any) => {
-          return sortingDir == 'desc' ? a.rating - b.rating : b.rating - a.rating;
+        sortedMovies = this.movies.sort((a: Movie, b: Movie) => {
+          return sortingDir == 'desc' ? +a.rating - +b.rating : +b.rating - +a.rating;
         });
 
         break;
@@ -70,7 +72,17 @@ export class MoviesListComponent implements OnInit {
     this.movies = sortedMovies;
   }
 
-  movieLiked(event: any) {
-    console.log('Movie liked from child component');
+  movieLiked(movieTitle: string) {
+    if (this.moviesLiked.includes(movieTitle)) {
+      this.moviesLiked = this.moviesLiked.filter(movie => {return movie !== movieTitle});
+      --this.likedMovies;
+    } else {
+      this.moviesLiked.push(movieTitle);
+      ++this.likedMovies;
+    }
+
+    // Intentional keeping this for demo
+    // purposes to show the list changing
+    console.log(this.moviesLiked)
   }
 }
