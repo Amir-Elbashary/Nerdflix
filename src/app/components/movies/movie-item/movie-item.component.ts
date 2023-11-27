@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Movie } from "../../../models/movie.model";
 
 @Component({
   selector: 'app-movie-item',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./movie-item.component.css']
 })
 export class MovieItemComponent implements OnInit {
-  @Input() movie: any;
+  @Input() movie: Movie = {title: '', urlPoster: '', rating: '', year: ''};
   @Input() moviesLiked: string[] = [];
   @Output() onMovieLiked = new EventEmitter<boolean>();
   movieLiked = false;
@@ -17,6 +18,10 @@ export class MovieItemComponent implements OnInit {
     if (this.moviesLiked.includes(this.movie.title)) {
       this.movieLiked = true;
     }
+  }
+
+  handleMissingImage(event: Event) {
+    (event.target as HTMLImageElement).src = './assets/images/no-image.jpg';
   }
 
   toggleMovieLike() {

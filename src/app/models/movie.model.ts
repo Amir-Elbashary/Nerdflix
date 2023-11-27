@@ -1,5 +1,6 @@
 export interface Movie {
-    title: string;
-    urlPoser: string;
-    rating: string;
+  title: string;
+  urlPoster: string;
+  rating: string;
+  year: string;
 }

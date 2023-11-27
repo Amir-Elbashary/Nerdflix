@@ -19,6 +19,7 @@ export class MoviesListComponent implements OnInit {
   ngOnInit() {
     this.moviesService.getMovies().subscribe((response: any) => {
       this.movies = response.body.data.movies;
+      console.log(this.movies[0])
     });
   }
 
@@ -35,7 +36,7 @@ export class MoviesListComponent implements OnInit {
           this.movies = response.body.data.movies.filter((movie: any) => movie.title.toLowerCase().includes(searchKey.toLowerCase()));
         }
       }); 
-    }, 500);
+    }, 800);
   }
 
   // Sorting also should be moved to a service
