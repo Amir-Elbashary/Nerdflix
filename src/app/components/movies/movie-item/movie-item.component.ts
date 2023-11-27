@@ -24,8 +24,8 @@ export class MovieItemComponent implements OnInit {
     (event.target as HTMLImageElement).src = './assets/images/no-image.jpg';
   }
 
-  toggleMovieLike() {
-    this.movieLiked ? this.movieLiked = false : this.movieLiked = true
+  toggleMovieLike(action: string) {
+    this.movieLiked ? this.movieLiked = false : this.movieLiked = true;
 
     this.onMovieLiked.emit(this.movieLiked);
   }

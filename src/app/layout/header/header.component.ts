@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class HeaderComponent {
   menuShown = false;
   // We could also use Subject here
-  likedMovies = 2;
+  @Input() likedMovies: number = 0;
   @Output() onMovieLiked = new EventEmitter<any>();
 
   constructor() {}

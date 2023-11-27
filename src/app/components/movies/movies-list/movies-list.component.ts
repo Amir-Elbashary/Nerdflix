@@ -11,6 +11,7 @@ export class MoviesListComponent implements OnInit {
   movies: Movie[] = [];
   moviesLiked = ['The Shawshank Redemption', 'The Dark Knight'];
   timeout: any = null;
+  likedMovies = 2;
 
   constructor(
     private moviesService: MoviesService
@@ -72,7 +73,17 @@ export class MoviesListComponent implements OnInit {
     this.movies = sortedMovies;
   }
 
-  movieLiked(event: any) {
-    console.log('Movie liked from child component');
+  movieLiked(event: any, action: any) {
+    if (this.moviesLiked.includes(action)) {
+      this.moviesLiked = this.moviesLiked.filter(movie => {return movie !== action});
+      --this.likedMovies
+    } else {
+      this.moviesLiked.push(action)
+      ++this.likedMovies
+    }
+
+    // Intentional keeping this for demo
+    // purposes to show the list changing
+    console.log(this.moviesLiked)
   }
 }
