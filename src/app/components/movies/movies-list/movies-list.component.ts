@@ -11,7 +11,6 @@ export class MoviesListComponent implements OnInit {
   movies: Movie[] = [];
   moviesLiked = ['The Shawshank Redemption', 'The Dark Knight'];
   timeout: any = null;
-  likedMovies = 2;
 
   constructor(
     private moviesService: MoviesService
@@ -75,10 +74,8 @@ export class MoviesListComponent implements OnInit {
   movieLiked(movieTitle: string) {
     if (this.moviesLiked.includes(movieTitle)) {
       this.moviesLiked = this.moviesLiked.filter(movie => {return movie !== movieTitle});
-      --this.likedMovies;
     } else {
       this.moviesLiked.push(movieTitle);
-      ++this.likedMovies;
     }
 
     // Intentional keeping this for demo
